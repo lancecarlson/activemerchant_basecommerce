@@ -29,8 +29,8 @@ namespace :test do
   desc 'Run all tests that do not require network access'
   task :local => ['test:units', 'rubocop']
 
-  Rake::TestTask.new(:gateways) do |t|
-    t.pattern = 'test/gateways/**/*_test.rb'
+  Rake::TestTask.new(:remote) do |t|
+    t.pattern = 'test/remote/**/*_test.rb'
     t.libs << 'test'
     t.verbose = true
   end
