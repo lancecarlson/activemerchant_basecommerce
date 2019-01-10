@@ -10,6 +10,8 @@ require 'uri'
 
 require 'activemerchant_basecommerce'
 
+ActiveMerchant::Billing::Base.mode = :test
+
 if ENV['DEBUG_ACTIVE_MERCHANT'] == 'true'
   require 'logger'
   ActiveMerchant::Billing::Gateway.logger = Logger.new(STDOUT)
@@ -34,7 +36,7 @@ module ActiveMerchantBaseCommerce
         :brand => 'visa'
       }.update(options)
 
-      defaults
+      ActiveMerchant::Billing::CreditCard.new(defaults)
     end
 
     def check(options = {})
@@ -48,7 +50,7 @@ module ActiveMerchantBaseCommerce
         :number => '1'
       }.update(options)
 
-      defaults
+      ActiveMerchant::Billing::Check.new(defaults)
     end
 
     def address(options = {})
